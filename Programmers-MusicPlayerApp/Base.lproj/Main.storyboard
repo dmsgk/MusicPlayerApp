@@ -50,6 +50,9 @@
                             </stackView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Trj-UF-ZZh">
                                 <rect key="frame" x="58" y="372.5" width="298" height="31"/>
+                                <connections>
+                                    <action selector="moveProgressSlider:" destination="mks-BB-IFm" eventType="valueChanged" id="K3X-IH-sUz"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgX-Xo-IBY">
                                 <rect key="frame" x="177" y="420" width="60" height="60"/>

@@ -28,13 +28,11 @@ class ViewController: UIViewController {
         sender.isSelected = sender.isSelected ? false : true
         if sender.isSelected {
             self.player.play()
-            player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: .main)
+            player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: .main) //0.1초마다
             { time in
                 let rawTime = CMTimeGetSeconds(time)
-                let totalRawTime = CMTimeGetSeconds(self.player.currentItem!.duration)
-                let fraction = rawTime / totalRawTime
-                self.progressSlider.value = Float(fraction)
-                let currTime = self.convertCMTimeToRealTime(seconds: time)
+                self.progressSlider.value = Float(rawTime)
+                let currTime = self.convertCMTimeToRealTime(cMTime: time)
                 self.currentTime?.text = currTime[0] as? String
             }
         }
@@ -43,21 +41,33 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func moveProgressSlider(_ sender: UISlider) {
+        // 슬라이더 움직이면 슬라이더 값 변화하고, 변화한 값 토대로 음원도 시간변경시키는 함수
+        // sender.value 에 맞는 CMTime을 찾기
+        if sender.value == sender.maximumValue {
+            self.audioPlayerDidFinishPlaying(self.player, successfully: true)
+        }
+        let currTime : String = (self.convertCMTimeToRealTime(cMTime:CMTime(seconds: Double(sender.value), preferredTimescale: 1))[0]) as! String
+        
+        if sender.isTracking { return }
+        self.player.seek(to: CMTime(seconds: Double(sender.value), preferredTimescale: 1))
+        self.currentTime?.text = currTime
+    }
+    
     //MARK: -AudioPlayer
     func initPlayer(url: URL) {
         let playerItem = AVPlayerItem(url: url)
-        player = AVPlayer(playerItem: playerItem)
+        let avAsset = AVAsset(url: url)
+        self.player = AVPlayer(playerItem: playerItem)
         playAudioBackground()
         
         DispatchQueue.main.async { [self] in
             self.progressSlider.minimumValue = 0
+            self.progressSlider.maximumValue = Float(CMTimeGetSeconds(avAsset.duration))
             self.progressSlider.value = 0
             
-            if player.currentItem?.status == .readyToPlay {    //  반영안된다. 나중에 수정하기.
-                let totalSeconds = player.currentItem!.duration
-                print("totalSeconds: \(totalSeconds)")
-                self.totalTime?.text = self.convertCMTimeToRealTime(seconds: totalSeconds)[0] as? String
-            }
+            let totalSeconds = avAsset.duration
+            self.totalTime?.text = self.convertCMTimeToRealTime(cMTime: totalSeconds)[0] as? String
         }
         
     
@@ -73,23 +83,9 @@ class ViewController: UIViewController {
             print(error)
         }
     }
-    func makeAndFireTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { [unowned self] (timer: Timer) in
-          
-            if self.progressSlider.isTracking { return }
-//            self.convertCMTimeToRealTime(seconds: self.player.currentTime())
-            self.progressSlider.value = Float(CMTimeGetSeconds(self.player.currentTime()))
-        })
-        self.timer.fire()
-    }
     
-    func invalidateTimer() {
-        self.timer.invalidate()
-        self.timer = nil
-    }
-    
-    func convertCMTimeToRealTime (seconds : CMTime) -> Array<Any> {
-        let totalSeconds = CMTimeGetSeconds(seconds)
+    func convertCMTimeToRealTime (cMTime : CMTime) -> Array<Any> {
+        let totalSeconds = CMTimeGetSeconds(cMTime)
         let seconds: Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
         let minutes: Int = Int(totalSeconds / 60)
         let miliseconds: Int = Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 100)
@@ -97,10 +93,9 @@ class ViewController: UIViewController {
       return [timeFormatString, miliseconds]
     }
 
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(_ player: AVPlayer, successfully flag: Bool) {
         self.playPauseButton.isSelected = false
         self.progressSlider.value = 0
-        self.invalidateTimer()
     }
     
     
