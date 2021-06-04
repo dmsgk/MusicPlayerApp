@@ -126,6 +126,16 @@
                             <constraint firstItem="0S9-fg-mIS" firstAttribute="trailing" secondItem="Trj-UF-ZZh" secondAttribute="trailing" constant="60" id="tvn-Ae-Lwj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="album" destination="fIt-eN-Wle" id="iLb-VH-y2N"/>
+                        <outlet property="albumCoverImageView" destination="twc-Pn-6jJ" id="BKw-vh-RZo"/>
+                        <outlet property="currentTime" destination="c7G-PL-e4o" id="3zB-hK-7fX"/>
+                        <outlet property="musicTitle" destination="lgc-EP-EfY" id="g8o-ta-I0N"/>
+                        <outlet property="playPauseButton" destination="sgX-Xo-IBY" id="qFu-0m-SUT"/>
+                        <outlet property="progressSlider" destination="Trj-UF-ZZh" id="Nzs-T0-KVu"/>
+                        <outlet property="singer" destination="QHZ-Eg-cHg" id="DAC-gC-Nzy"/>
+                        <outlet property="totalTime" destination="Mp1-bp-HYu" id="pEW-7y-h2U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpb-ck-bIj" sceneMemberID="firstResponder"/>
             </objects>
