@@ -57,6 +57,9 @@
                                     <imageReference key="image" image="play-60" symbolScale="large"/>
                                 </state>
                                 <state key="selected" image="pause-60"/>
+                                <connections>
+                                    <action selector="touchUpPlayPauseMusic:" destination="mks-BB-IFm" eventType="touchUpInside" id="sc7-dt-faF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="233" placeholderIntrinsicHeight="37" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9W-g9-AId">
                                 <rect key="frame" x="104.5" y="285.5" width="205" height="37"/>
@@ -131,7 +134,7 @@
                         <outlet property="albumCoverImageView" destination="twc-Pn-6jJ" id="BKw-vh-RZo"/>
                         <outlet property="currentTime" destination="c7G-PL-e4o" id="3zB-hK-7fX"/>
                         <outlet property="musicTitle" destination="lgc-EP-EfY" id="g8o-ta-I0N"/>
-                        <outlet property="playPauseButton" destination="sgX-Xo-IBY" id="qFu-0m-SUT"/>
+                        <outlet property="playPauseButton" destination="sgX-Xo-IBY" id="GXI-XX-Ql4"/>
                         <outlet property="progressSlider" destination="Trj-UF-ZZh" id="Nzs-T0-KVu"/>
                         <outlet property="singer" destination="QHZ-Eg-cHg" id="DAC-gC-Nzy"/>
                         <outlet property="totalTime" destination="Mp1-bp-HYu" id="pEW-7y-h2U"/>
