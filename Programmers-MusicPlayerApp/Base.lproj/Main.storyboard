@@ -13,13 +13,13 @@
         <!--View Controller-->
         <scene sceneID="nw7-4h-uHd">
             <objects>
-                <viewController id="mks-BB-IFm" customClass="ViewController" customModule="Programmers_MusicPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mks-BB-IFm" customClass="ViewController" customModule="Programmers_MusicPlayerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9RD-eS-o7r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="twc-Pn-6jJ" userLabel="AlbumCoverImage View">
-                                <rect key="frame" x="104.5" y="75" width="205.5" height="205.5"/>
+                                <rect key="frame" x="90.5" y="75" width="233.5" height="233.5"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="twc-Pn-6jJ" secondAttribute="height" multiplier="1:1" id="YQ8-fO-hLq"/>
@@ -32,16 +32,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="L3t-De-glP">
-                                <rect key="frame" x="60" y="337.5" width="90.5" height="35"/>
+                                <rect key="frame" x="60" y="365.5" width="90.5" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MusicLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgc-EP-EfY">
-                                        <rect key="frame" x="0.0" y="0.0" width="90.5" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="90.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ArtistLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHZ-Eg-cHg">
-                                        <rect key="frame" x="0.0" y="19" width="90.5" height="16"/>
+                                        <rect key="frame" x="0.0" y="23.5" width="90.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,13 +49,13 @@
                                 </subviews>
                             </stackView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Trj-UF-ZZh">
-                                <rect key="frame" x="58" y="372.5" width="298" height="31"/>
+                                <rect key="frame" x="58" y="409.5" width="298" height="31"/>
                                 <connections>
                                     <action selector="moveProgressSlider:" destination="mks-BB-IFm" eventType="valueChanged" id="K3X-IH-sUz"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgX-Xo-IBY">
-                                <rect key="frame" x="177" y="420" width="60" height="60"/>
+                                <rect key="frame" x="177" y="457" width="60" height="60"/>
                                 <state key="normal">
                                     <imageReference key="image" image="play-60" symbolScale="large"/>
                                 </state>
@@ -65,9 +65,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="233" placeholderIntrinsicHeight="37" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9W-g9-AId">
-                                <rect key="frame" x="104.5" y="285.5" width="205" height="37"/>
+                                <rect key="frame" x="90.5" y="313.5" width="233" height="37"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
-                                <state key="normal" title="LyricsButton">
+                                <state key="normal">
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
@@ -75,10 +75,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="Mkj-A9-kX0">
-                                <rect key="frame" x="60" y="405.5" width="293.5" height="14.5"/>
+                                <rect key="frame" x="60" y="442.5" width="293.5" height="14.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7G-PL-e4o">
-                                        <rect key="frame" x="0.0" y="0.0" width="26.5" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7G-PL-e4o">
+                                        <rect key="frame" x="0.0" y="0.0" width="34" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <nil key="highlightedColor"/>
@@ -92,7 +92,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="J0h-Ad-Vgy">
-                                <rect key="frame" x="300.5" y="439" width="53" height="22"/>
+                                <rect key="frame" x="300.5" y="476" width="53" height="22"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXi-nf-4bB">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="22"/>
@@ -110,7 +110,7 @@
                         <constraints>
                             <constraint firstItem="twc-Pn-6jJ" firstAttribute="top" secondItem="fIt-eN-Wle" secondAttribute="bottom" constant="5" id="2vI-ZR-WeU"/>
                             <constraint firstItem="fIt-eN-Wle" firstAttribute="centerX" secondItem="9RD-eS-o7r" secondAttribute="centerX" id="4Rr-lz-wDG"/>
-                            <constraint firstItem="Y9W-g9-AId" firstAttribute="width" secondItem="twc-Pn-6jJ" secondAttribute="width" multiplier="0.997859" id="6KJ-wR-EZE"/>
+                            <constraint firstItem="twc-Pn-6jJ" firstAttribute="width" relation="greaterThanOrEqual" secondItem="Y9W-g9-AId" secondAttribute="width" multiplier="1.00215" id="6KJ-wR-EZE"/>
                             <constraint firstItem="Mkj-A9-kX0" firstAttribute="top" secondItem="Trj-UF-ZZh" secondAttribute="bottom" constant="3" id="ECJ-j7-rhK"/>
                             <constraint firstItem="Mkj-A9-kX0" firstAttribute="width" secondItem="Trj-UF-ZZh" secondAttribute="width" multiplier="0.998299" id="HPN-ej-UdX"/>
                             <constraint firstItem="0S9-fg-mIS" firstAttribute="bottom" secondItem="sgX-Xo-IBY" secondAttribute="bottom" priority="250" constant="400" id="MNT-Be-da7"/>
@@ -121,11 +121,10 @@
                             <constraint firstItem="fIt-eN-Wle" firstAttribute="top" secondItem="0S9-fg-mIS" secondAttribute="top" constant="10" id="Y0Z-Pr-Qgj"/>
                             <constraint firstItem="sgX-Xo-IBY" firstAttribute="centerX" secondItem="Mkj-A9-kX0" secondAttribute="centerX" id="bMS-aI-gXz"/>
                             <constraint firstItem="J0h-Ad-Vgy" firstAttribute="trailing" secondItem="Mkj-A9-kX0" secondAttribute="trailing" id="cR5-is-VuH"/>
-                            <constraint firstItem="sgX-Xo-IBY" firstAttribute="top" relation="lessThanOrEqual" secondItem="9RD-eS-o7r" secondAttribute="top" constant="420" id="cRu-aa-lOt"/>
                             <constraint firstItem="L3t-De-glP" firstAttribute="top" secondItem="Y9W-g9-AId" secondAttribute="bottom" constant="15" id="d9i-hc-5eu"/>
                             <constraint firstItem="Trj-UF-ZZh" firstAttribute="top" secondItem="L3t-De-glP" secondAttribute="bottom" id="e2U-1g-DUA"/>
                             <constraint firstItem="L3t-De-glP" firstAttribute="leading" secondItem="Trj-UF-ZZh" secondAttribute="leading" id="fu7-2u-4MI"/>
-                            <constraint firstItem="L3t-De-glP" firstAttribute="top" relation="lessThanOrEqual" secondItem="twc-Pn-6jJ" secondAttribute="bottom" constant="60" id="m3B-Bo-968"/>
+                            <constraint firstItem="L3t-De-glP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="twc-Pn-6jJ" secondAttribute="bottom" constant="50" id="m3B-Bo-968"/>
                             <constraint firstItem="sgX-Xo-IBY" firstAttribute="top" secondItem="Mkj-A9-kX0" secondAttribute="bottom" id="pdL-N1-B1A"/>
                             <constraint firstItem="twc-Pn-6jJ" firstAttribute="centerX" secondItem="9RD-eS-o7r" secondAttribute="centerX" id="qs4-zK-TvA"/>
                             <constraint firstItem="Mkj-A9-kX0" firstAttribute="leading" secondItem="Trj-UF-ZZh" secondAttribute="leading" id="tFo-LQ-qhz"/>
@@ -136,6 +135,7 @@
                         <outlet property="album" destination="fIt-eN-Wle" id="iLb-VH-y2N"/>
                         <outlet property="albumCoverImageView" destination="twc-Pn-6jJ" id="BKw-vh-RZo"/>
                         <outlet property="currentTime" destination="c7G-PL-e4o" id="3zB-hK-7fX"/>
+                        <outlet property="lyricsButton" destination="Y9W-g9-AId" id="0gO-a5-iAJ"/>
                         <outlet property="musicTitle" destination="lgc-EP-EfY" id="g8o-ta-I0N"/>
                         <outlet property="playPauseButton" destination="sgX-Xo-IBY" id="GXI-XX-Ql4"/>
                         <outlet property="progressSlider" destination="Trj-UF-ZZh" id="Nzs-T0-KVu"/>
@@ -150,7 +150,7 @@
         <!--Lyrics View Controller-->
         <scene sceneID="TsB-bm-359">
             <objects>
-                <viewController id="egB-Kf-5Yk" customClass="LyricsViewController" customModule="Programmers_MusicPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="egB-Kf-5Yk" customClass="LyricsViewController" customModule="Programmers_MusicPlayerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YRq-PF-Iky">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
