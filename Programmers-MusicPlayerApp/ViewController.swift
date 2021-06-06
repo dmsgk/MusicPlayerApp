@@ -102,12 +102,11 @@ class ViewController: UIViewController {
     func showLyricsWhilePlaying(lyrics: String){
         let lyricsArray = lyrics.components(separatedBy: ["\n","[","]"])
         
-        self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1000), queue: .main) //0.1초마다
+        self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1000), queue: .main) //밀리초마다
         { time in
             let currTime = self.convertCMTimeToRealTime(cMTime: time)   // 현재시간
             let TimeContainMiliSeconds = "\(currTime[0]):\(currTime[1])"
             if lyricsArray.contains(TimeContainMiliSeconds) {
-                print(TimeContainMiliSeconds)
                 let firstIndex : Int = lyricsArray.firstIndex(of: TimeContainMiliSeconds)!
                 self.lyricsButton.setTitle(lyricsArray[firstIndex+1] , for: .normal)
                 
