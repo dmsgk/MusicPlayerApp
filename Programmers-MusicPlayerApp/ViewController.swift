@@ -100,15 +100,21 @@ class ViewController: UIViewController {
     }
     
     func showLyricsWhilePlaying(lyrics: String){
-        let lyricsArray = lyrics.components(separatedBy: ["\n","[","]"])
+        let lyricsArray = lyrics.components(separatedBy: "\n")
+        var lyricsDic : [String : String] = [:]
+        for lyr in lyricsArray {
+            let lyr = lyr.trimmingCharacters(in: ["["])
+            let tempArr = lyr.components(separatedBy: ["]"])
+            lyricsDic[tempArr[0]] = tempArr[1]
+        }
+        
         
         self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1000), queue: .main) //밀리초마다
         { time in
             let currTime = self.convertCMTimeToRealTime(cMTime: time)   // 현재시간
             let TimeContainMiliSeconds = "\(currTime[0]):\(currTime[1])"
-            if lyricsArray.contains(TimeContainMiliSeconds) {
-                let firstIndex : Int = lyricsArray.firstIndex(of: TimeContainMiliSeconds)!
-                self.lyricsButton.setTitle(lyricsArray[firstIndex+1] , for: .normal)
+            if (lyricsDic[TimeContainMiliSeconds] != nil) {
+                self.lyricsButton.setTitle(lyricsDic[TimeContainMiliSeconds] , for: .normal)
                 
             }
             
