@@ -128,46 +128,36 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         if let url = URL(string: "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/song.json") {
-           URLSession.shared.dataTask(with: url) {
-            data, response, error in
-            if let data = data {
-                let jsonDecoder = JSONDecoder()
-                do {
-                    let parsedJSON = try jsonDecoder.decode(MusicData.self, from: data)
-                    let imageUrl = parsedJSON.image
-                    guard let imageData = try? Data(contentsOf: imageUrl) else {
-                        return
+            URLSession.shared.dataTask(with: url) {
+                data, response, error in
+                if let data = data {
+                    let jsonDecoder = JSONDecoder()
+                    do {
+                        let parsedJSON = try jsonDecoder.decode(MusicData.self, from: data)
+                        guard let imageData = try? Data(contentsOf: parsedJSON.image) else {
+                            return
+                        }
+                        let image = UIImage(data: imageData)
+                        self.initPlayer(url: parsedJSON.file)
+                        self.showLyricsWhilePlaying(lyrics: parsedJSON.lyrics)
+                        DispatchQueue.main.async { [self] in
+                            let resizedImage = image?.resizedImage(newWidth:  self.albumCoverImageView.frame.width)
+                            
+                            self.singer?.text = parsedJSON.singer
+                            self.musicTitle?.text = parsedJSON.title
+                            self.album?.text = parsedJSON.album
+                            self.albumCoverImageView.contentMode = .scaleAspectFit
+                            self.albumCoverImageView?.image = resizedImage
+                        }
+                        
+                    } catch {
+                        print(error)
                     }
-                    let image = UIImage(data: imageData)
-                    let fileUrl = parsedJSON.file
-                    self.initPlayer(url: fileUrl)
-                    let lyrics = parsedJSON.lyrics
-                    self.showLyricsWhilePlaying(lyrics: lyrics)
-                    DispatchQueue.main.async { [self] in
-                        let resizedImage = image?.resizedImage(newWidth:  self.albumCoverImageView.frame.width)
-
-                        self.singer?.text = parsedJSON.singer
-                        self.musicTitle?.text = parsedJSON.title
-                        self.album?.text = parsedJSON.album
-                        self.albumCoverImageView.contentMode = .scaleAspectFit
-                        self.albumCoverImageView?.image = resizedImage
-                    }
-                   
-                } catch {
-                    print(error)
                 }
-            }
-           }.resume()
-            
-        }
-    }
-
-
+            }.resume()
+        }}
+    
 }
 
 

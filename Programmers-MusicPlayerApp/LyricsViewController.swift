@@ -13,9 +13,32 @@ class LyricsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBOutlet var artist : UILabel!
+    @IBOutlet var muzicTitle : UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let url = URL(string: "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/song.json") {
+            URLSession.shared.dataTask(with: url) {
+                data, response, error in
+                if let data = data {
+                    let jsonDecoder = JSONDecoder()
+                    do {
+                        let parsedJSON = try jsonDecoder.decode(MusicData.self, from: data)
+                        DispatchQueue.main.async { [self] in
+                            self.artist?.text = parsedJSON.singer
+                            self.muzicTitle?.text = parsedJSON.title
+                            
+                        }
+                        
+                    } catch {
+                        print(error)
+                    }
+                }
+            }.resume()
+        }}
 
         // Do any additional setup after loading the view.
     }
@@ -31,4 +54,4 @@ class LyricsViewController: UIViewController {
     }
     */
 
-}
+

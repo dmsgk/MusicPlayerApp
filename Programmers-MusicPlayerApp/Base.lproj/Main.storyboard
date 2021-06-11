@@ -66,9 +66,10 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="233" placeholderIntrinsicHeight="37" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9W-g9-AId">
                                 <rect key="frame" x="90.5" y="263.5" width="233" height="42"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                 <state key="normal">
-                                    <color key="titleColor" systemColor="systemGrayColor"/>
+                                    <color key="titleColor" systemColor="systemBlueColor"/>
                                 </state>
                                 <connections>
                                     <segue destination="egB-Kf-5Yk" kind="presentation" id="NQ7-dM-1c2"/>
@@ -134,7 +135,7 @@
                         <outlet property="album" destination="fIt-eN-Wle" id="iLb-VH-y2N"/>
                         <outlet property="albumCoverImageView" destination="twc-Pn-6jJ" id="BKw-vh-RZo"/>
                         <outlet property="currentTime" destination="c7G-PL-e4o" id="3zB-hK-7fX"/>
-                        <outlet property="lyricsButton" destination="Y9W-g9-AId" id="0gO-a5-iAJ"/>
+                        <outlet property="lyricsButton" destination="Y9W-g9-AId" id="7V1-63-bea"/>
                         <outlet property="musicTitle" destination="lgc-EP-EfY" id="g8o-ta-I0N"/>
                         <outlet property="playPauseButton" destination="sgX-Xo-IBY" id="GXI-XX-Ql4"/>
                         <outlet property="progressSlider" destination="Trj-UF-ZZh" id="Nzs-T0-KVu"/>
@@ -154,8 +155,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4L9-9a-iKr">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4L9-9a-iKr">
                                 <rect key="frame" x="30" y="170" width="354" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -201,10 +203,6 @@
                         <viewLayoutGuide key="safeArea" id="yI5-Ke-amA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="4L9-9a-iKr" firstAttribute="top" secondItem="D9o-a8-gSG" secondAttribute="bottom" constant="50" id="3tk-Pd-bgD"/>
-                            <constraint firstItem="yI5-Ke-amA" firstAttribute="trailing" secondItem="4L9-9a-iKr" secondAttribute="trailing" constant="30" id="6W4-HH-eQS"/>
-                            <constraint firstItem="yI5-Ke-amA" firstAttribute="bottom" secondItem="4L9-9a-iKr" secondAttribute="bottom" priority="250" constant="70" id="8mN-u5-uTn"/>
-                            <constraint firstItem="4L9-9a-iKr" firstAttribute="leading" secondItem="yI5-Ke-amA" secondAttribute="leading" constant="30" id="Edr-Sv-wIa"/>
                             <constraint firstItem="D9o-a8-gSG" firstAttribute="top" secondItem="yI5-Ke-amA" secondAttribute="top" constant="15" id="XQe-2B-s8z"/>
                             <constraint firstItem="sH1-Is-OuA" firstAttribute="height" secondItem="L2r-11-cVQ" secondAttribute="height" multiplier="1.32258" id="d1K-Md-GIH"/>
                             <constraint firstItem="yI5-Ke-amA" firstAttribute="trailing" secondItem="D9o-a8-gSG" secondAttribute="trailing" constant="20" id="nF9-vr-jt7"/>
@@ -212,6 +210,10 @@
                             <constraint firstItem="sH1-Is-OuA" firstAttribute="centerY" secondItem="D9o-a8-gSG" secondAttribute="centerY" id="vHB-Nm-Ufc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="artist" destination="sOk-ql-O1W" id="GyK-QU-DJs"/>
+                        <outlet property="muzicTitle" destination="7A0-L6-oVA" id="Ddy-k1-15U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2I-a0-w7f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
