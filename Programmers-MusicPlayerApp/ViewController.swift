@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             { time in
                 let rawTime = CMTimeGetSeconds(time)
                 self.progressSlider.value = Float(rawTime)
-                let currTime = self.convertCMTimeToRealTime(cMTime: time)
+                let currTime = ViewController.convertCMTimeToRealTime(cMTime: time)
                 self.currentTime?.text = currTime[0] as? String
             }
         }
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         if sender.value == sender.maximumValue {
             self.audioPlayerDidFinishPlaying(self.player, successfully: true)
         }
-        let currTime : String = (self.convertCMTimeToRealTime(cMTime:CMTime(seconds: Double(sender.value), preferredTimescale: 1))[0]) as! String
+        let currTime : String = (ViewController.convertCMTimeToRealTime(cMTime:CMTime(seconds: Double(sender.value), preferredTimescale: 1))[0]) as! String
         
         if sender.isTracking { return }
         self.player.seek(to: CMTime(seconds: Double(sender.value), preferredTimescale: 1))
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
             self.progressSlider.maximumValue = Float(CMTimeGetSeconds(totalSeconds))
             self.progressSlider.value = 0
             
-            self.totalTime?.text = self.convertCMTimeToRealTime(cMTime: totalSeconds)[0] as? String
+            self.totalTime?.text = ViewController.convertCMTimeToRealTime(cMTime: totalSeconds)[0] as? String
         }
         
     
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func convertCMTimeToRealTime (cMTime : CMTime) -> Array<Any> {
+    class func convertCMTimeToRealTime (cMTime : CMTime) -> Array<Any> {
         let totalSeconds = CMTimeGetSeconds(cMTime)
         let seconds: Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
         let minutes: Int = Int(totalSeconds / 60)
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
         
         self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1000), queue: .main) //밀리초마다
         { time in
-            let currTime = self.convertCMTimeToRealTime(cMTime: time)   // 현재시간
+            let currTime = ViewController.convertCMTimeToRealTime(cMTime: time)   // 현재시간
             let TimeContainMiliSeconds = "\(currTime[0]):\(currTime[1])"
             if (lyricsDic[TimeContainMiliSeconds] != nil) {
                 self.lyricsButton.setTitle(lyricsDic[TimeContainMiliSeconds] , for: .normal)
