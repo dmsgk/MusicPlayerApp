@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet var currentTime : UILabel!
     @IBOutlet var totalTime : UILabel!
     @IBOutlet var lyricsButton : UIButton!
+    @IBOutlet var progressBar : UISlider!
     
     
     // MARK: -IBActions
@@ -45,9 +46,6 @@ class ViewController: UIViewController {
     @IBAction func moveProgressSlider(_ sender: UISlider) {
         // 슬라이더 움직이면 슬라이더 값 변화하고, 변화한 값 토대로 음원도 시간변경시키는 함수
         // sender.value 에 맞는 CMTime을 찾기
-        if sender.value == sender.maximumValue {
-            self.audioPlayerDidFinishPlaying(self.player, successfully: true)
-        }
         let currTime : String = (ViewController.convertCMTimeToRealTime(cMTime:CMTime(seconds: Double(sender.value), preferredTimescale: 1))[0]) as! String
         
         if sender.isTracking { return }
@@ -74,6 +72,17 @@ class ViewController: UIViewController {
     
     }
     
+    // 수정할 것
+    
+    func audioPlayerDidFinishPlaying(_ player: AVPlayer, successfully flag: Bool) {
+        DispatchQueue.main.async {
+            if self.progressBar.value == self.progressBar.maximumValue {
+                self.playPauseButton.isSelected = false
+                self.progressSlider.value = 0
+            }
+        }
+    }
+    
     func playAudioBackground() {
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: [.mixWithOthers, .allowAirPlay])
@@ -87,17 +96,14 @@ class ViewController: UIViewController {
     
     class func convertCMTimeToRealTime (cMTime : CMTime) -> Array<Any> {
         let totalSeconds = CMTimeGetSeconds(cMTime)
-        let seconds: Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
+        let seconds: Int = Int(round(totalSeconds.truncatingRemainder(dividingBy: 60)))
         let minutes: Int = Int(totalSeconds / 60)
-        let miliseconds: String = String(format: "%03d", Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 1000))
+        let milliseconds: String = String(format: "%d00", Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 10))
         let timeFormatString = String(format: "%02d:%02d", minutes, seconds)
-      return [timeFormatString, miliseconds]
+      return [timeFormatString, milliseconds]
     }
 
-    func audioPlayerDidFinishPlaying(_ player: AVPlayer, successfully flag: Bool) {
-        self.playPauseButton.isSelected = false
-        self.progressSlider.value = 0
-    }
+    
     
     func showLyricsWhilePlaying(lyrics: String){
         let lyricsArray = lyrics.components(separatedBy: "\n")
@@ -113,6 +119,7 @@ class ViewController: UIViewController {
         { time in
             let currTime = ViewController.convertCMTimeToRealTime(cMTime: time)   // 현재시간
             let TimeContainMiliSeconds = "\(currTime[0]):\(currTime[1])"
+            print(TimeContainMiliSeconds)
             if (lyricsDic[TimeContainMiliSeconds] != nil) {
                 self.lyricsButton.setTitle(lyricsDic[TimeContainMiliSeconds] , for: .normal)
                 
@@ -140,6 +147,7 @@ class ViewController: UIViewController {
                         }
                         let image = UIImage(data: imageData)
                         self.initPlayer(url: parsedJSON.file)
+                        self.audioPlayerDidFinishPlaying(self.player, successfully: true)
                         self.showLyricsWhilePlaying(lyrics: parsedJSON.lyrics)
                         DispatchQueue.main.async { [self] in
                             let resizedImage = image?.resizedImage(newWidth:  self.albumCoverImageView.frame.width)

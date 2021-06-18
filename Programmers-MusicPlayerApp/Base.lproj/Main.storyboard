@@ -51,7 +51,7 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Trj-UF-ZZh">
                                 <rect key="frame" x="58" y="354.5" width="298" height="31"/>
                                 <connections>
-                                    <action selector="moveProgressSlider:" destination="mks-BB-IFm" eventType="valueChanged" id="K3X-IH-sUz"/>
+                                    <action selector="moveProgressSlider:" destination="mks-BB-IFm" eventType="valueChanged" id="hTp-V7-hXQ"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgX-Xo-IBY">
@@ -138,6 +138,7 @@
                         <outlet property="lyricsButton" destination="Y9W-g9-AId" id="7V1-63-bea"/>
                         <outlet property="musicTitle" destination="lgc-EP-EfY" id="g8o-ta-I0N"/>
                         <outlet property="playPauseButton" destination="sgX-Xo-IBY" id="GXI-XX-Ql4"/>
+                        <outlet property="progressBar" destination="Trj-UF-ZZh" id="PqO-x8-dwd"/>
                         <outlet property="progressSlider" destination="Trj-UF-ZZh" id="Nzs-T0-KVu"/>
                         <outlet property="singer" destination="QHZ-Eg-cHg" id="DAC-gC-Nzy"/>
                         <outlet property="totalTime" destination="Mp1-bp-HYu" id="pEW-7y-h2U"/>
