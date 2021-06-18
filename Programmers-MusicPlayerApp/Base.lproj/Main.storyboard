@@ -209,6 +209,9 @@
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L2r-11-cVQ">
                                                             <rect key="frame" x="325" y="0.0" width="51" height="31.5"/>
                                                             <color key="onTintColor" systemColor="systemBlueColor"/>
+                                                            <connections>
+                                                                <action selector="onOffToggle:" destination="egB-Kf-5Yk" eventType="valueChanged" id="oBs-gZ-Qdh"/>
+                                                            </connections>
                                                         </switch>
                                                     </subviews>
                                                 </stackView>

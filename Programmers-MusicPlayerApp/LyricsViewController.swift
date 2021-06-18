@@ -11,7 +11,9 @@ class LyricsViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
-    var lyricsList : [String] = ["we wish you a merry christmas", "we wish you a merry christmas", "we wish you a merry christmas", "and a happy new year", "we wish you a merry christmas", "we wish you a merry christmas", "we wish you a merry christmas", "and a happy new year", "good tidings we bring", "to you and your kin", "good tidings for christmas", "and a happy new year", "Oh, bring us some figgy pudding", "Oh, bring us some figgy pudding", "Oh, bring us some figgy pudding", "And bring it right here", "Good tidings we bring ", "to you and your kin", "Good tidings for Christmas ", "and a happy new year", "we wish you a merry christmas", "we wish you a merry christmas", "we wish you a merry christmas", "and a happy new year", "We won\'t go until we get some", "We won\'t go until we get some", "We won\'t go until we get some", "So bring some out here", "연주", "Good tidings we bring ", "to you and your kin", "good tidings for christmas", "and a happy new year", "we wish you a merry christmas", "we wish you a merry christmas", "we wish you a merry christmas", "and a happy new year", "Good tidings we bring ", "to you and your kin", "Good tidings for Christmas ", "and a happy new year", "Oh, bring us some figgy pudding", "Oh, bring us some figgy pudding", "Oh, bring us some figgy pudding", "And bring it right here", "we wish you a merry christmas", "we wish you a merry christmas", "we wish you a merry christmas", "and a happy new year"]
+    var lyricsList : [String]!
+    var toggleSwitch = true
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.lyricsList.count+1
@@ -31,7 +33,31 @@ class LyricsViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if toggleSwitch == true {
+            print("--> \(indexPath.row)")
+        }
+        else {
+            if indexPath.row > 0 {
+                dismiss(animated: true, completion: nil)
+                
+            }
+        }
+    }
     
+    
+    @IBAction func onOffToggle(_ sender : UISwitch){
+        if sender.isOn {
+            print("switch is on")
+            self.toggleSwitch = true
+        }
+        else {
+            print("switch is off")
+            self.toggleSwitch = false
+        }
+    }
+    
+   
     
     func showLyricsDict(lyrics: String) -> [String] {
         let lyricsArray = lyrics.components(separatedBy: "\n")
