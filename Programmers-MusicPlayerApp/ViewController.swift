@@ -119,7 +119,6 @@ class ViewController: UIViewController {
         { time in
             let currTime = ViewController.convertCMTimeToRealTime(cMTime: time)   // 현재시간
             let TimeContainMiliSeconds = "\(currTime[0]):\(currTime[1])"
-            print(TimeContainMiliSeconds)
             if (lyricsDic[TimeContainMiliSeconds] != nil) {
                 self.lyricsButton.setTitle(lyricsDic[TimeContainMiliSeconds] , for: .normal)
                 

@@ -12,6 +12,7 @@ class LyricsViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var lyricsList : [String]!
+    var lyricsDict : [String: String]!
     var toggleSwitch = true
     
     
@@ -35,7 +36,11 @@ class LyricsViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if toggleSwitch == true {
-            print("--> \(indexPath.row)")
+            let seletedLyrics = self.lyricsList[indexPath.row - 1]
+            print(seletedLyrics)
+            
+            // 가사 터치할 때 해당 부분으로 넘어가도록
+            
         }
         else {
             if indexPath.row > 0 {
@@ -59,7 +64,7 @@ class LyricsViewController: UIViewController, UITableViewDataSource, UITableView
     
    
     
-    func showLyricsDict(lyrics: String) -> [String] {
+    func showLyricsList(lyrics: String) -> [String] {
         let lyricsArray = lyrics.components(separatedBy: "\n")
         var lyricsList : [String ] = []
         for lyr in lyricsArray {
@@ -91,7 +96,7 @@ class LyricsViewController: UIViewController, UITableViewDataSource, UITableView
                     let jsonDecoder = JSONDecoder()
                     do {
                         let parsedJSON = try jsonDecoder.decode(MusicData.self, from: data)
-                        self.lyricsList = showLyricsDict(lyrics: parsedJSON.lyrics)
+                        self.lyricsList = showLyricsList(lyrics: parsedJSON.lyrics)
                         DispatchQueue.main.async { [self] in
                             self.artist?.text = parsedJSON.singer
                             self.muzicTitle?.text = parsedJSON.title
