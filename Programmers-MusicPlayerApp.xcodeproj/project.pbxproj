@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FC33C300266C84D5005F7468 /* LyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC33C2FF266C84D5005F7468 /* LyricsViewController.swift */; };
+		FC7CE8C82685F7BF008E685C /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7CE8C72685F7BF008E685C /* HttpClient.swift */; };
 		FCC4E7FE2669F36D00F26626 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC4E7FD2669F36D00F26626 /* AppDelegate.swift */; };
 		FCC4E8002669F36D00F26626 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC4E7FF2669F36D00F26626 /* SceneDelegate.swift */; };
 		FCC4E8022669F36D00F26626 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC4E8012669F36D00F26626 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		FC33C2FF266C84D5005F7468 /* LyricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsViewController.swift; sourceTree = "<group>"; };
+		FC7CE8C72685F7BF008E685C /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		FCC4E7FA2669F36D00F26626 /* Programmers-MusicPlayerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Programmers-MusicPlayerApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC4E7FD2669F36D00F26626 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCC4E7FF2669F36D00F26626 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC7CE8C62685F797008E685C /* network */ = {
+			isa = PBXGroup;
+			children = (
+				FC7CE8C72685F7BF008E685C /* HttpClient.swift */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
 		FCC4E7F12669F36D00F26626 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		FCC4E7FC2669F36D00F26626 /* Programmers-MusicPlayerApp */ = {
 			isa = PBXGroup;
 			children = (
+				FC7CE8C62685F797008E685C /* network */,
 				FCC4E7FD2669F36D00F26626 /* AppDelegate.swift */,
 				FCC4E7FF2669F36D00F26626 /* SceneDelegate.swift */,
 				FCC4E8012669F36D00F26626 /* ViewController.swift */,
@@ -147,6 +158,7 @@
 				FC33C300266C84D5005F7468 /* LyricsViewController.swift in Sources */,
 				FCC4E7FE2669F36D00F26626 /* AppDelegate.swift in Sources */,
 				FCC4E8002669F36D00F26626 /* SceneDelegate.swift in Sources */,
+				FC7CE8C82685F7BF008E685C /* HttpClient.swift in Sources */,
 				FCC4E8152669FA4900F26626 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
