@@ -34,4 +34,19 @@ class PlayerViewModel : NSObject {
     
     }
     
+    
+    func getAlbumImage(music : Music, completion : @escaping (Result<Data, Error>) -> Void){
+        
+        do {
+            let imageData = try Data(contentsOf: music.image)
+            DispatchQueue.main.async {
+                completion(Result.success(imageData))
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(Result.failure(error))
+            }
+        }
+    }
+    
 }
