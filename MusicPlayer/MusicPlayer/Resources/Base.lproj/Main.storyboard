@@ -90,15 +90,17 @@
                     </view>
                     <connections>
                         <outlet property="albumImage" destination="XW6-92-kzQ" id="J1s-Xi-vNN"/>
-                        <outlet property="albumLabel" destination="mGp-LQ-gjD" id="BdB-GJ-PX4"/>
+                        <outlet property="albumLabel" destination="A5s-de-PXx" id="HJ0-lS-6TO"/>
                         <outlet property="lyricsLabel" destination="mGp-LQ-gjD" id="HxY-TB-X4R"/>
                         <outlet property="playPauseBtn" destination="t3c-wR-WAH" id="NWo-EA-hJf"/>
                         <outlet property="seekBar" destination="6Lc-1J-60f" id="iR8-8N-NFb"/>
                         <outlet property="singerLabel" destination="LgE-Hs-wox" id="d1T-gx-U71"/>
                         <outlet property="titleLabel" destination="eX7-WV-lLj" id="HGU-30-1Ol"/>
+                        <outlet property="viewModel" destination="7NH-qR-zLb" id="d8R-a8-3R2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="7NH-qR-zLb" customClass="PlayerViewModel" customModule="MusicPlayer" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="44.927536231884062" y="67.633928571428569"/>
         </scene>
