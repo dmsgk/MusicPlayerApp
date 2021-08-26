@@ -58,6 +58,9 @@
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Lc-1J-60f">
                                         <rect key="frame" x="-2" y="0.0" width="318" height="31"/>
+                                        <connections>
+                                            <action selector="moveSeekBar:" destination="BYZ-38-t0r" eventType="valueChanged" id="QBb-wz-oJj"/>
+                                        </connections>
                                     </slider>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="f8g-sY-m4j">
                                         <rect key="frame" x="0.0" y="40" width="314" height="60"/>
@@ -69,7 +72,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3c-wR-WAH">
-                                                <rect key="frame" x="63.5" y="0.0" width="202" height="60"/>
+                                                <rect key="frame" x="63.5" y="0.0" width="187" height="60"/>
                                                 <state key="normal" image="play-60"/>
                                                 <state key="selected" image="pause-60"/>
                                                 <connections>
@@ -77,12 +80,15 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVL-z6-FOM">
-                                                <rect key="frame" x="265.5" y="0.0" width="48.5" height="20.5"/>
+                                                <rect key="frame" x="250.5" y="0.0" width="63.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="t3c-wR-WAH" firstAttribute="centerX" secondItem="f8g-sY-m4j" secondAttribute="centerX" id="b9v-UF-Tg1"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>

@@ -30,6 +30,8 @@ class PlayerViewController: UIViewController {
         viewModel.playPauseMusic(sender.isSelected)
     }
     
+    @IBAction func moveSeekBar(_ sender: Any) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +58,21 @@ class PlayerViewController: UIViewController {
                 }
                 // player 업데이트
                 self.viewModel.initPlayer(url: music.file)
-                self.totalPlaytimeLabel.text = self.viewModel.totalPlaytime(url: music.file)
+                self.totalPlaytimeLabel.text = self.viewModel.convertCMTimeToRealTime( self.viewModel.musicDuration(url: music.file))
                 self.currentPlaytimeLabel.text = "0:00"
                 
                 // progressBar 업데이트
+                self.seekBar.minimumValue = 0
+                self.seekBar.maximumValue = Float(self.viewModel.musicDuration(url: music.file))
+                
+                self.seekBar.value = 0
+
+                
+                /*
+                    self.progressSlider.maximumValue = Float(CMTimeGetSeconds(totalSeconds))
+                    
+                 */
+
             }
         }
         

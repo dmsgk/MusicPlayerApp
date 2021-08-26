@@ -20,10 +20,14 @@ class PlayerViewModel : NSObject {
         playAudioBackground()
     }
     
-    func totalPlaytime(url : URL) -> String {
-        let totalSeconds = AVAsset(url: url).duration
+    func totalPlaytime(_ totalSeconds : Double) -> String {
         
-        return convertCMTimeToRealTime(cMTime: totalSeconds) // "MM:ss:mmm"
+        return convertCMTimeToRealTime(totalSeconds) // "MM:ss:mmm"
+    }
+    
+    func musicDuration(url : URL) -> Double {
+        let totalDuration = AVAsset(url: url).duration
+        return CMTimeGetSeconds(totalDuration)
     }
     
     
@@ -115,9 +119,7 @@ class PlayerViewModel : NSObject {
         
     }
     
-    func convertCMTimeToRealTime (cMTime : CMTime) -> String {
-        let totalSeconds = CMTimeGetSeconds(cMTime)
-        
+    func convertCMTimeToRealTime (_ totalSeconds: Double) -> String {
         let seconds = Int(floor(totalSeconds.truncatingRemainder(dividingBy: 60)))
         let minutes = Int(totalSeconds / 60)
         let milliseconds = Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 10)
