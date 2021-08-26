@@ -67,12 +67,6 @@ class PlayerViewController: UIViewController {
                 
                 self.seekBar.value = 0
 
-                
-                /*
-                    self.progressSlider.maximumValue = Float(CMTimeGetSeconds(totalSeconds))
-                    
-                 */
-
             }
         }
         
@@ -99,14 +93,4 @@ extension UIImage {
    }
 }
 
-extension Notification.Name {
-    static let playPauseBtnClicked = Notification.Name("playPauseBtnClicked")
-    
-}
-//
-//extension UIButton {
-//    var btnIsTouched : AnyPublisher<Bool, Never> {
-//        NotificationCenter.default.publisher(for: UIButton.)
-//    }
-//}
 

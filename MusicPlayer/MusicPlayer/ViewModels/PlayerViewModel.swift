@@ -20,10 +20,6 @@ class PlayerViewModel : NSObject {
         playAudioBackground()
     }
     
-    func totalPlaytime(_ totalSeconds : Double) -> String {
-        
-        return convertCMTimeToRealTime(totalSeconds) // "MM:ss:mmm"
-    }
     
     func musicDuration(url : URL) -> Double {
         let totalDuration = AVAsset(url: url).duration
