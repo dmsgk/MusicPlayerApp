@@ -52,7 +52,14 @@ class PlayerViewModel : NSObject {
         }
     }
 
+    func moveSeekBar(_ value : Float)  {
+        self.player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1))
+    }
     
+    func getCurrTime(_ value : Float) -> String {
+        let currTime : String = convertCMTimeToRealTime(Double(value)) 
+        return currTime
+    }
    
     
     

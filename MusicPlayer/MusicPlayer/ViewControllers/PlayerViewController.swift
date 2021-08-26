@@ -30,7 +30,9 @@ class PlayerViewController: UIViewController {
         viewModel.playPauseMusic(sender.isSelected)
     }
     
-    @IBAction func moveSeekBar(_ sender: Any) {
+    @IBAction func moveSeekBar(_ sender: UISlider) {
+        viewModel.moveSeekBar(sender.value)
+        self.currentPlaytimeLabel.text = viewModel.getCurrTime(sender.value)
     }
     
     override func viewDidLoad() {
@@ -69,11 +71,7 @@ class PlayerViewController: UIViewController {
 
             }
         }
-        
-        
-    
 
-        
     }
 
 
