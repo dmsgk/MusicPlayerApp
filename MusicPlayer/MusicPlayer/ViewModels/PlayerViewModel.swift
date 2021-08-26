@@ -6,10 +6,58 @@
 //
 
 import Foundation
+import AVKit
+
 
 class PlayerViewModel : NSObject {
     
-    func getMusicData(completion: @escaping (Result<Music, Error>)-> Void) {
+    // MARK: -AVPlayer
+    var player : AVPlayer!
+    
+    func initPlayer(url : URL) {
+        let playerItem = AVPlayerItem(url: url)
+        self.player = AVPlayer(playerItem: playerItem)
+        playAudioBackground()
+    }
+    
+    func totalPlaytime(url : URL) -> String {
+        let totalSeconds = AVAsset(url: url).duration
+        
+        return convertCMTimeToRealTime(cMTime: totalSeconds) // "MM:ss:mmm"
+    }
+    
+    
+    func playAudioBackground() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: [.mixWithOthers, .allowAirPlay])
+            print("Playback OK")
+            
+            try AVAudioSession.sharedInstance().setActive(true)
+            print("Session is Active")
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    func playPauseMusic(_ senderIsSelected : Bool) {
+        // isSelected == true일 때 재생, 아닐 때 멈춤
+        
+        if senderIsSelected {
+            self.player.play()
+        }
+        else {
+            self.player.pause()
+        }
+    }
+
+    
+   
+    
+    
+    // MARK: -fetch data
+    func fetchData(completion: @escaping (Result<Music, Error>)-> Void) {
         let urlStr = "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/song.json"
         
         if let url = URL(string: urlStr) {
@@ -48,5 +96,35 @@ class PlayerViewModel : NSObject {
             }
         }
     }
+    
+    // lyrics의 초를 key, 가사를 value로 하는 딕셔너리 생성
+    func getLyricsDict(music: Music) -> [String:String] {
+        let lyricsStr = music.lyrics
+        var lyricsDict = [String: String]()
+        
+        let lyricsArr = lyricsStr.split{ $0 == "\n"}.map{ String($0) }
+        for i in 0..<lyricsArr.count {
+            var lyrics = lyricsArr[i]
+            lyrics.removeFirst()
+            
+            let timeLyricsArr = lyrics.split{ $0 == "]"}.map{ String($0) }
+            lyricsDict[timeLyricsArr[0]] = timeLyricsArr[1]
+        }
+        
+        return lyricsDict
+        
+    }
+    
+    func convertCMTimeToRealTime (cMTime : CMTime) -> String {
+        let totalSeconds = CMTimeGetSeconds(cMTime)
+        
+        let seconds = Int(floor(totalSeconds.truncatingRemainder(dividingBy: 60)))
+        let minutes = Int(totalSeconds / 60)
+        let milliseconds = Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 10)
+        let timeFormatString = String(format: "%02d:%02d:%03d", minutes, seconds, milliseconds)
+        
+        return timeFormatString
+    }
+    
     
 }

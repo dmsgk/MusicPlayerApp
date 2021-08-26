@@ -19,25 +19,26 @@ class PlayerViewController: UIViewController {
     @IBOutlet var albumImage: UIImageView!
     @IBOutlet var playPauseBtn: UIButton!
     
+    @IBOutlet var totalPlaytimeLabel: UILabel!
+    @IBOutlet var currentPlaytimeLabel: UILabel!
+    
+    
+    
+    
     @IBAction func touchUpPlayBtn(_ sender: UIButton) {
         sender.isSelected = sender.isSelected ? false : true
-        if sender.isSelected {
-            print("play")
-        } else {
-            print("pause")
-        }
-        
+        viewModel.playPauseMusic(sender.isSelected)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getMusicData()
-        // Do any additional setup after loading the view.
     }
     
+    
     func getMusicData() {
-        viewModel.getMusicData { result in
+        viewModel.fetchData { result in
             if let music = try? result.get() {
                 // ui 값 업데이트
                 self.singerLabel.text = music.singer
@@ -53,6 +54,12 @@ class PlayerViewController: UIViewController {
                         self.albumImage?.image = resizedImage
                     }
                 }
+                // player 업데이트
+                self.viewModel.initPlayer(url: music.file)
+                self.totalPlaytimeLabel.text = self.viewModel.totalPlaytime(url: music.file)
+                self.currentPlaytimeLabel.text = "0:00"
+                
+                // progressBar 업데이트
             }
         }
         
@@ -78,4 +85,15 @@ extension UIImage {
        return image
    }
 }
+
+extension Notification.Name {
+    static let playPauseBtnClicked = Notification.Name("playPauseBtnClicked")
+    
+}
+//
+//extension UIButton {
+//    var btnIsTouched : AnyPublisher<Bool, Never> {
+//        NotificationCenter.default.publisher(for: UIButton.)
+//    }
+//}
 
