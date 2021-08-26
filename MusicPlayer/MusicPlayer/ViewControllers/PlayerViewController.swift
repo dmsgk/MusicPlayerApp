@@ -75,6 +75,10 @@ class PlayerViewController: UIViewController {
         viewModel.currLocation.bind { [weak self] currLocation in
             self?.seekBar.value = currLocation
         }
+        
+        viewModel.maxLocation.bind { [weak self] maxLoaction in
+            self?.seekBar.maximumValue = maxLoaction
+        }
     }
     
 }

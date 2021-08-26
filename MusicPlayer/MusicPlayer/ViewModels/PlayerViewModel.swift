@@ -61,6 +61,15 @@ class PlayerViewModel : NSObject {
         
         if senderIsSelected {
             player.play()
+            
+            player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: .main) //0.1초마다
+            { time in
+                let cmTime = CMTimeGetSeconds(time)
+                self.currLocation.value = Float(cmTime)
+                let currTime = self.convertCMTimeToRealTime(Double(cmTime))
+                self.currTime.value = currTime
+            }
+            
         }
         else {
             player.pause()
@@ -69,6 +78,7 @@ class PlayerViewModel : NSObject {
 
     func moveSeekBar(_ value : Float)  {
         player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1))
+        
     }
     
     func getCurrTime(_ value : Float) -> String {
