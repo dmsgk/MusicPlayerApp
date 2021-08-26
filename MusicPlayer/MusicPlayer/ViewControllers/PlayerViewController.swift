@@ -37,44 +37,46 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.fetchData()
         getMusicData()
     }
     
     
+    
     func getMusicData() {
-        viewModel.fetchData { result in
-            if let music = try? result.get() {
-                // ui 값 업데이트
-                self.singerLabel.text = music.singer
-                self.albumLabel.text = music.album
-                self.titleLabel.text = music.title
-                
-                // 앨범커버 업데이트
-                self.viewModel.getAlbumImage(music: music) { result in
-                    if let imageData = try? result.get() {
-                        let image = UIImage(data: imageData)
-                        let resizedImage = image?.resizedImage(newWidth:  self.albumImage.frame.width)
-                        self.albumImage.contentMode = .scaleAspectFit
-                        self.albumImage?.image = resizedImage
-                    }
-                }
-                // player 업데이트
-                self.viewModel.initPlayer(url: music.file)
-                self.totalPlaytimeLabel.text = self.viewModel.convertCMTimeToRealTime( self.viewModel.musicDuration(url: music.file))
-                self.currentPlaytimeLabel.text = "0:00"
-                
-                // progressBar 업데이트
-                self.seekBar.minimumValue = 0
-                self.seekBar.maximumValue = Float(self.viewModel.musicDuration(url: music.file))
-                
-                self.seekBar.value = 0
-
-            }
+        viewModel.singer.bind { [weak self] singer in
+            self?.singerLabel.text = singer
         }
-
+        
+        viewModel.title.bind { [weak self] title in
+            self?.titleLabel.text = title
+        }
+        
+        viewModel.albumTitle.bind { [weak self] albumTitle in
+            self?.albumLabel.text = albumTitle
+        }
+        
+        viewModel.albumImg.bind { [weak self] albumImg in
+            let resizedImage = albumImg?.resizedImage(newWidth:  (self?.albumImage.frame.width)!)
+            self?.albumImage.contentMode = .scaleAspectFit
+            self?.albumImage?.image = resizedImage
+            
+        }
+        
+        viewModel.currTime.bind { [weak self] time in
+            self?.currentPlaytimeLabel.text = time
+        }
+        
+        viewModel.totalTime.bind { [weak self] time in
+            self?.totalPlaytimeLabel.text = time
+        }
+        
+        self.seekBar.minimumValue = 0
+        viewModel.currLocation.bind { [weak self] currLocation in
+            self?.seekBar.value = currLocation
+        }
     }
-
-
+    
 }
 
 extension UIImage {
