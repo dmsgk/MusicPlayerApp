@@ -7,16 +7,17 @@
 
 import Foundation
 import AVKit
+var player : AVPlayer!
+
 
 
 class PlayerViewModel : NSObject {
     
     // MARK: -AVPlayer
-    var player : AVPlayer!
     
     func initPlayer(url : URL) {
         let playerItem = AVPlayerItem(url: url)
-        self.player = AVPlayer(playerItem: playerItem)
+        player = AVPlayer(playerItem: playerItem)
         playAudioBackground()
     }
     
@@ -45,15 +46,15 @@ class PlayerViewModel : NSObject {
         // isSelected == true일 때 재생, 아닐 때 멈춤
         
         if senderIsSelected {
-            self.player.play()
+            player.play()
         }
         else {
-            self.player.pause()
+            player.pause()
         }
     }
 
     func moveSeekBar(_ value : Float)  {
-        self.player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1))
+        player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1))
     }
     
     func getCurrTime(_ value : Float) -> String {
