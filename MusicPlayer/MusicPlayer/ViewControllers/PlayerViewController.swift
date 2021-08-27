@@ -32,7 +32,6 @@ class PlayerViewController: UIViewController {
     
     @IBAction func moveSeekBar(_ sender: UISlider) {
         viewModel.moveSeekBar(sender.value)
-        self.currentPlaytimeLabel.text = viewModel.getCurrTime(sender.value)
     }
     
     override func viewDidLoad() {

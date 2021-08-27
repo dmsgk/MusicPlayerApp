@@ -22,9 +22,11 @@ class PlayerViewModel : NSObject {
     let totalTime = Observable("")
     let currTime = Observable("")
     
-    let currLocation = Observable(Float(-1))
-    let maxLocation = Observable(Float(-1))
+    let currLocation = Observable(Float(0))
+    let maxLocation = Observable(Float(0))
     
+    let currLyrics = Observable("")
+   
     
     
     
@@ -79,12 +81,10 @@ class PlayerViewModel : NSObject {
     func moveSeekBar(_ value : Float)  {
         player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1))
         
+        let currTime : String = convertCMTimeToRealTime(Double(value))
+        self.currTime.value = currTime        
     }
-    
-    func getCurrTime(_ value : Float) -> String {
-        let currTime : String = convertCMTimeToRealTime(Double(value)) 
-        return currTime
-    }
+
    
     
     
