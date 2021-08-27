@@ -78,6 +78,10 @@ class PlayerViewController: UIViewController {
         viewModel.maxLocation.bind { [weak self] maxLoaction in
             self?.seekBar.maximumValue = maxLoaction
         }
+        
+        viewModel.currLyrics.bind { [weak self] lyrics in
+            self?.lyricsLabel.text = lyrics
+        }
     }
     
 }

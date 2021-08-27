@@ -25,7 +25,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Eyg-aj-UG5">
-                                <rect key="frame" x="50" y="354" width="74" height="46"/>
+                                <rect key="frame" x="50" y="373.5" width="74" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="곡명" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX7-WV-lLj">
                                         <rect key="frame" x="0.0" y="0.0" width="29.5" height="20.5"/>
@@ -47,14 +47,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가사" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGp-LQ-gjD" userLabel="Lyrics Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가사" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGp-LQ-gjD" userLabel="Lyrics Label">
                                 <rect key="frame" x="100" y="303.5" width="214" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="L7w-RV-d3k">
-                                <rect key="frame" x="50" y="410" width="314" height="100"/>
+                                <rect key="frame" x="50" y="429.5" width="314" height="100"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Lc-1J-60f">
                                         <rect key="frame" x="-2" y="0.0" width="318" height="31"/>
@@ -65,7 +65,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="f8g-sY-m4j">
                                         <rect key="frame" x="0.0" y="40" width="314" height="60"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재 시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8e-mw-GTS">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재 시간" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8e-mw-GTS">
                                                 <rect key="frame" x="0.0" y="0.0" width="63.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -79,7 +79,7 @@
                                                     <action selector="touchUpPlayBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nqc-Yr-HeA"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVL-z6-FOM">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 시간" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVL-z6-FOM">
                                                 <rect key="frame" x="250.5" y="0.0" width="63.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -111,7 +111,7 @@
                             <constraint firstItem="XW6-92-kzQ" firstAttribute="top" secondItem="A5s-de-PXx" secondAttribute="bottom" constant="5" id="Xgn-vi-Dbo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XW6-92-kzQ" secondAttribute="trailing" constant="100" id="akA-6n-tpJ"/>
                             <constraint firstItem="A5s-de-PXx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h9S-yr-Atb"/>
-                            <constraint firstItem="Eyg-aj-UG5" firstAttribute="top" secondItem="mGp-LQ-gjD" secondAttribute="bottom" constant="30" id="idk-rd-IFH"/>
+                            <constraint firstItem="Eyg-aj-UG5" firstAttribute="top" secondItem="XW6-92-kzQ" secondAttribute="bottom" constant="80" id="idk-rd-IFH"/>
                             <constraint firstItem="mGp-LQ-gjD" firstAttribute="top" secondItem="XW6-92-kzQ" secondAttribute="bottom" constant="10" id="wa1-d8-Dbs"/>
                         </constraints>
                     </view>

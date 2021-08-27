@@ -27,6 +27,7 @@ class PlayerViewModel : NSObject {
     
     let currLyrics = Observable("")
    
+    var lyricsDict = Dictionary<String, String>()
     
     
     
@@ -67,9 +68,19 @@ class PlayerViewModel : NSObject {
             player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: .main) //0.1초마다
             { time in
                 let cmTime = CMTimeGetSeconds(time)
+                
+                // slider 위치 업데이트
                 self.currLocation.value = Float(cmTime)
-                let currTime = self.convertCMTimeToRealTime(Double(cmTime))
-                self.currTime.value = currTime
+                
+                // 현재 재생시간 업데이트
+                let minSecMilliSec = self.convertCMTimeToRealTime(cmTime)
+                let endIdx = minSecMilliSec.index(minSecMilliSec.startIndex, offsetBy: 5)
+                self.currTime.value = String(minSecMilliSec[..<endIdx])
+                
+                // 가사 업데이트
+                if let lyrics = self.lyricsDict[minSecMilliSec] {
+                    self.currLyrics.value = lyrics
+                }                
             }
             
         }
@@ -79,10 +90,15 @@ class PlayerViewModel : NSObject {
     }
 
     func moveSeekBar(_ value : Float)  {
-        player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 1))
+        player.seek(to: CMTime(seconds: Double(value), preferredTimescale: 100))
         
-        let currTime : String = convertCMTimeToRealTime(Double(value))
-        self.currTime.value = currTime        
+        let minSecMilliSec : String = convertCMTimeToRealTime(Double(value))
+        let endIdx = minSecMilliSec.index(minSecMilliSec.startIndex, offsetBy: 5)
+        self.currTime.value = String(minSecMilliSec[..<endIdx])
+        
+        if let lyrics = self.lyricsDict[minSecMilliSec] {
+            self.currLyrics.value = lyrics
+        }
     }
 
    
@@ -114,7 +130,7 @@ class PlayerViewModel : NSObject {
     
     }
     
-    
+    // 디코딩한 데이터 observable클래스타입으로
     func fetchData() {
         decodeData { result in
             if let music = try? result.get() {
@@ -133,13 +149,21 @@ class PlayerViewModel : NSObject {
                 }
                 // player 업데이트
                 self.initPlayer(url: music.file)
-                self.totalTime.value = self.convertCMTimeToRealTime(self.musicDuration(url: music.file))
+                
+                let minSecMilliSec = self.convertCMTimeToRealTime(self.musicDuration(url: music.file))
+                let endIdx = minSecMilliSec.index(minSecMilliSec.startIndex, offsetBy: 5)
+                self.totalTime.value = String(minSecMilliSec[..<endIdx])
+                
                 self.currTime.value = "0:00"
                 
 
                 // progressBar 업데이트
                 self.currLocation.value = 0
                 self.maxLocation.value = Float(self.musicDuration(url: music.file))
+                
+                //lyrics
+                self.lyricsDict = self.getLyricsDict(music: music)
+                                
             }
         }
         
@@ -181,7 +205,7 @@ class PlayerViewModel : NSObject {
         let seconds = Int(floor(totalSeconds.truncatingRemainder(dividingBy: 60)))
         let minutes = Int(totalSeconds / 60)
         let milliseconds = Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 10)
-        let timeFormatString = String(format: "%02d:%02d:%03d", minutes, seconds, milliseconds)
+        let timeFormatString = String(format: "%02d:%02d:%01d00", minutes, seconds, milliseconds)
         
         return timeFormatString
     }
