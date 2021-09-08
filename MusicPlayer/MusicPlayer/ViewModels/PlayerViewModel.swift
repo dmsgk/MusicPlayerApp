@@ -13,6 +13,7 @@ var player : AVPlayer!
 
 class PlayerViewModel : NSObject {
     
+    static let shared = PlayerViewModel()
     
     let singer = Observable(" ")
     let title = Observable(" ")
@@ -28,10 +29,16 @@ class PlayerViewModel : NSObject {
     let currLyrics = Observable("")
    
     var lyricsDict = Dictionary<String, String>()
+    var lyricsArr = [[String]]()
+    var switchStatus = Observable(true)
+    var isNowPlaying = Observable(false)
+
     
     
+    //MARK: - PlayerViewController
     
-    // MARK: -AVPlayer
+    
+    // MARK: AVPlayer
     func initPlayer(url : URL) {
         let playerItem = AVPlayerItem(url: url)
         player = AVPlayer(playerItem: playerItem)
@@ -58,29 +65,33 @@ class PlayerViewModel : NSObject {
         }
     }
     
-    
-    func playPauseMusic(_ senderIsSelected : Bool) {
-        // isSelected == true일 때 재생, 아닐 때 멈춤
+    func updatePlayerStatus(_ time : CMTime){
+        let cmTime = CMTimeGetSeconds(time)
         
-        if senderIsSelected {
+        // slider 위치 업데이트
+        self.currLocation.value = Float(cmTime)
+        
+        // 현재 재생시간 업데이트
+        let minSecMilliSec = self.convertCMTimeToRealTime(cmTime)
+        let endIdx = minSecMilliSec.index(minSecMilliSec.startIndex, offsetBy: 5)
+        self.currTime.value = String(minSecMilliSec[..<endIdx])
+        
+        // 가사 업데이트
+        if let lyrics = self.lyricsDict[minSecMilliSec] {
+            self.currLyrics.value = lyrics
+        }
+        
+        
+    }
+    
+    
+    func playPauseMusic() {
+        // isSelected == true일 때 재생, 아닐 때 멈춤
+        if isNowPlaying.value {
             player.play()
-            
             player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: .main) //0.1초마다
             { time in
-                let cmTime = CMTimeGetSeconds(time)
-                
-                // slider 위치 업데이트
-                self.currLocation.value = Float(cmTime)
-                
-                // 현재 재생시간 업데이트
-                let minSecMilliSec = self.convertCMTimeToRealTime(cmTime)
-                let endIdx = minSecMilliSec.index(minSecMilliSec.startIndex, offsetBy: 5)
-                self.currTime.value = String(minSecMilliSec[..<endIdx])
-                
-                // 가사 업데이트
-                if let lyrics = self.lyricsDict[minSecMilliSec] {
-                    self.currLyrics.value = lyrics
-                }                
+                self.updatePlayerStatus(time)
             }
             
         }
@@ -104,7 +115,7 @@ class PlayerViewModel : NSObject {
    
     
     
-    // MARK: -fetch data
+    // MARK: fetch data
     func decodeData(completion: @escaping (Result<Music, Error>)-> Void) {
         let urlStr = "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/song.json"
         
@@ -208,6 +219,58 @@ class PlayerViewModel : NSObject {
         let timeFormatString = String(format: "%02d:%02d:%01d00", minutes, seconds, milliseconds)
         
         return timeFormatString
+    }
+    
+    
+    
+    
+    // MARK: - LyricsViewController
+    
+    func fetchLyrics() {
+        decodeData { result in
+            if let music = try? result.get() {
+                self.lyricsArr = self.getLyricsArr(music: music)
+            }
+        }
+        
+    }
+    // lyrics의 [초, 가사]를 담은 배열 생성
+    func getLyricsArr(music: Music) -> [[String]] {
+        
+        let lyricsStr = music.lyrics
+        var lyricsArr = [[String]]()
+        
+        let arr = lyricsStr.split{ $0 == "\n"}.map{ String($0) }
+        for i in 0..<arr.count {
+            var lyrics = arr[i]
+            lyrics.removeFirst()
+            
+            let timeLyricsArr = lyrics.split{ $0 == "]"}.map{ String($0) }
+            lyricsArr.append(timeLyricsArr)
+        }
+        return lyricsArr
+    }
+    
+    func movePlayerToLyricsPart(_ targetTime : String){
+        let cmTime = CMTime(seconds: convertRealtimeToDouble(targetTime), preferredTimescale: 100)
+        player.seek(to: CMTime(seconds: cmTime.seconds, preferredTimescale: 100))
+        updatePlayerStatus(cmTime)
+        playPauseMusic()
+
+    }
+    
+    
+    func getSwitchStatus(_ status: Bool) {
+        self.switchStatus.value = status
+    }
+    
+    func convertRealtimeToDouble(_ timeStr : String) -> Double{
+        let minEndIdx = timeStr.index(timeStr.startIndex, offsetBy: 2), secEndIdx = timeStr.index(minEndIdx, offsetBy: 3)
+        
+        let min =  Double(timeStr[..<minEndIdx])!
+        let sec =  Double(timeStr[timeStr.index(after: minEndIdx)..<secEndIdx])!
+        let milli = Double(timeStr[timeStr.index(after:secEndIdx)...])!
+        return 60 * min + sec +  0.001 * milli
     }
     
     

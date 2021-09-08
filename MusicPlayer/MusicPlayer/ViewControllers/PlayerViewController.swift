@@ -9,8 +9,7 @@ import UIKit
 
 class PlayerViewController: UIViewController {
     
-    @IBOutlet var viewModel : PlayerViewModel!
-    
+    var viewModel = PlayerViewModel.shared
     @IBOutlet var albumLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var singerLabel: UILabel!
@@ -26,8 +25,8 @@ class PlayerViewController: UIViewController {
     
     
     @IBAction func touchUpPlayBtn(_ sender: UIButton) {
-        sender.isSelected = sender.isSelected ? false : true
-        viewModel.playPauseMusic(sender.isSelected)
+        viewModel.isNowPlaying.value = !viewModel.isNowPlaying.value
+        viewModel.playPauseMusic()
     }
     
     @IBAction func moveSeekBar(_ sender: UISlider) {
