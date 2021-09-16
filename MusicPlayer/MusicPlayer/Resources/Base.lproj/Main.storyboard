@@ -155,7 +155,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UFO-Rb-xBx">
-                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="648"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="toggleCell" id="NiV-JY-CyG" customClass="SwitchTableViewCell" customModule="MusicPlayer" customModuleProvider="target">
@@ -232,28 +232,68 @@
                                     <constraint firstItem="bn7-f7-Onq" firstAttribute="top" secondItem="T1X-f3-xNf" secondAttribute="top" id="xDp-TC-hb7"/>
                                 </constraints>
                             </stackView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cec-eP-pBs">
+                                <rect key="frame" x="28" y="752" width="358" height="31"/>
+                                <connections>
+                                    <action selector="moveSeekbar:" destination="ICR-Vx-yZe" eventType="valueChanged" id="YV4-3g-yYn"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhL-KC-lnp">
+                                <rect key="frame" x="171.5" y="797" width="71" height="60"/>
+                                <state key="normal" image="play-60"/>
+                                <state key="selected" image="pause-60"/>
+                                <connections>
+                                    <action selector="touchUpPlayPauseMusic:" destination="ICR-Vx-yZe" eventType="touchUpInside" id="ly3-Ee-da5"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JF-X3-Szb">
+                                <rect key="frame" x="342.5" y="797" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1z-XC-Nmd">
+                                <rect key="frame" x="30" y="797" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kBU-qQ-exO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="UFO-Rb-xBx" firstAttribute="leading" secondItem="kBU-qQ-exO" secondAttribute="leading" id="4dS-N7-YL6"/>
                             <constraint firstItem="UFO-Rb-xBx" firstAttribute="top" secondItem="T1X-f3-xNf" secondAttribute="bottom" id="4mN-Cc-NIB"/>
+                            <constraint firstItem="6JF-X3-Szb" firstAttribute="top" secondItem="qhL-KC-lnp" secondAttribute="top" id="6cQ-vk-AIY"/>
+                            <constraint firstItem="cec-eP-pBs" firstAttribute="top" secondItem="UFO-Rb-xBx" secondAttribute="bottom" constant="10" id="7p9-se-DSn"/>
                             <constraint firstItem="kBU-qQ-exO" firstAttribute="trailing" secondItem="UFO-Rb-xBx" secondAttribute="trailing" id="8zS-85-dgO"/>
+                            <constraint firstItem="B1z-XC-Nmd" firstAttribute="top" secondItem="qhL-KC-lnp" secondAttribute="top" id="B82-pI-V92"/>
+                            <constraint firstItem="cec-eP-pBs" firstAttribute="leading" secondItem="kBU-qQ-exO" secondAttribute="leading" constant="30" id="EyN-fm-kVi"/>
                             <constraint firstItem="kBU-qQ-exO" firstAttribute="trailing" secondItem="T1X-f3-xNf" secondAttribute="trailing" constant="30" id="JVh-Bq-jIO"/>
-                            <constraint firstItem="kBU-qQ-exO" firstAttribute="bottom" secondItem="UFO-Rb-xBx" secondAttribute="bottom" id="P5x-O0-xoU"/>
+                            <constraint firstItem="qhL-KC-lnp" firstAttribute="leading" relation="lessThanOrEqual" secondItem="B1z-XC-Nmd" secondAttribute="trailing" constant="100" id="O8a-Wm-xbp"/>
+                            <constraint firstItem="6JF-X3-Szb" firstAttribute="trailing" secondItem="cec-eP-pBs" secondAttribute="trailing" id="Odx-eE-2ZO"/>
+                            <constraint firstItem="kBU-qQ-exO" firstAttribute="bottom" secondItem="UFO-Rb-xBx" secondAttribute="bottom" constant="120" id="P5x-O0-xoU"/>
                             <constraint firstItem="T1X-f3-xNf" firstAttribute="leading" secondItem="kBU-qQ-exO" secondAttribute="leading" constant="20" id="Xos-xU-0Sm"/>
+                            <constraint firstItem="qhL-KC-lnp" firstAttribute="centerX" secondItem="cec-eP-pBs" secondAttribute="centerX" id="eFR-PW-M9K"/>
+                            <constraint firstItem="qhL-KC-lnp" firstAttribute="top" secondItem="cec-eP-pBs" secondAttribute="bottom" constant="15" id="fdZ-LR-TWQ"/>
                             <constraint firstItem="UFO-Rb-xBx" firstAttribute="top" secondItem="kBU-qQ-exO" secondAttribute="top" constant="50" id="ggY-rE-Y4x"/>
+                            <constraint firstItem="6JF-X3-Szb" firstAttribute="leading" relation="lessThanOrEqual" secondItem="qhL-KC-lnp" secondAttribute="trailing" constant="100" id="l2T-gK-1a6"/>
+                            <constraint firstItem="B1z-XC-Nmd" firstAttribute="leading" secondItem="cec-eP-pBs" secondAttribute="leading" id="o8I-DA-OYM"/>
+                            <constraint firstItem="kBU-qQ-exO" firstAttribute="trailing" secondItem="cec-eP-pBs" secondAttribute="trailing" constant="30" id="yUj-MU-mca"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="가사" id="57V-w1-S1Z"/>
                     <connections>
+                        <outlet property="currTime" destination="B1z-XC-Nmd" id="nnO-sd-LgJ"/>
+                        <outlet property="seekbar" destination="cec-eP-pBs" id="LyV-tQ-Ghl"/>
                         <outlet property="tableView" destination="UFO-Rb-xBx" id="anS-ne-hvH"/>
+                        <outlet property="totalTime" destination="6JF-X3-Szb" id="v8l-KA-RaT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAv-PW-KF2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="uID-Uu-0VR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="800" y="68"/>
+            <point key="canvasLocation" x="800.00000000000011" y="67.633928571428569"/>
         </scene>
     </scenes>
     <resources>

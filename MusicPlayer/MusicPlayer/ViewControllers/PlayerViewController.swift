@@ -35,10 +35,15 @@ class PlayerViewController: UIViewController {
         viewModel.moveSeekBar(sender.value)
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getMusicData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchData()
-        getMusicData()
+        
     }
     
     
