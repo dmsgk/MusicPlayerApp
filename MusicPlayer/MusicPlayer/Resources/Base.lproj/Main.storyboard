@@ -76,7 +76,7 @@
                                                 <state key="normal" image="play-60"/>
                                                 <state key="selected" image="pause-60"/>
                                                 <connections>
-                                                    <action selector="touchUpPlayBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nqc-Yr-HeA"/>
+                                                    <action selector="touchUpPlayBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jsd-rq-w82"/>
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oSd-JP-VXb">
@@ -135,7 +135,7 @@
                         <outlet property="albumLabel" destination="A5s-de-PXx" id="HJ0-lS-6TO"/>
                         <outlet property="currentPlaytimeLabel" destination="V8e-mw-GTS" id="q1D-N9-oRt"/>
                         <outlet property="lyricsLabel" destination="mGp-LQ-gjD" id="HxY-TB-X4R"/>
-                        <outlet property="playPauseBtn" destination="t3c-wR-WAH" id="NWo-EA-hJf"/>
+                        <outlet property="playPauseBtn" destination="t3c-wR-WAH" id="G8i-Fq-ltq"/>
                         <outlet property="seekBar" destination="6Lc-1J-60f" id="iR8-8N-NFb"/>
                         <outlet property="singerLabel" destination="LgE-Hs-wox" id="d1T-gx-U71"/>
                         <outlet property="titleLabel" destination="eX7-WV-lLj" id="HGU-30-1Ol"/>

@@ -25,6 +25,8 @@ class PlayerViewController: UIViewController {
     
     
     @IBAction func touchUpPlayBtn(_ sender: UIButton) {
+        sender.isSelected = sender.isSelected ? false : true
+        
         viewModel.isNowPlaying.value = !viewModel.isNowPlaying.value
         viewModel.playPauseMusic()
     }
