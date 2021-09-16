@@ -15,10 +15,10 @@ class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var currTime: UILabel!
     @IBOutlet var totalTime: UILabel!
     @IBOutlet var seekbar: UISlider!
-    
+    @IBOutlet var playPauseBtn: UIButton!
     
     @IBAction func touchUpPlayPauseMusic(_ sender: UIButton) {
-        sender.isSelected = sender.isSelected ? false : true
+        sender.isSelected = self.playPauseBtn.isSelected ? false : true
         viewModel.isNowPlaying.value = !viewModel.isNowPlaying.value
         viewModel.playPauseMusic()
 
@@ -64,6 +64,9 @@ class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self?.seekbar.maximumValue = maxLoaction
         }
         
+        viewModel.isNowPlaying.bind { [weak self] isNowPlaying in
+            self?.playPauseBtn.isSelected = isNowPlaying
+        }
         
     }
        

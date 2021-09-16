@@ -285,6 +285,7 @@
                     <navigationItem key="navigationItem" title="가사" id="57V-w1-S1Z"/>
                     <connections>
                         <outlet property="currTime" destination="B1z-XC-Nmd" id="nnO-sd-LgJ"/>
+                        <outlet property="playPauseBtn" destination="qhL-KC-lnp" id="HZo-yj-4gS"/>
                         <outlet property="seekbar" destination="cec-eP-pBs" id="LyV-tQ-Ghl"/>
                         <outlet property="tableView" destination="UFO-Rb-xBx" id="anS-ne-hvH"/>
                         <outlet property="totalTime" destination="6JF-X3-Szb" id="v8l-KA-RaT"/>

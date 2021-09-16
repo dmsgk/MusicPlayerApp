@@ -88,6 +88,10 @@ class PlayerViewController: UIViewController {
         viewModel.currLyrics.bind { [weak self] lyrics in
             self?.lyricsLabel.text = lyrics
         }
+        
+        viewModel.isNowPlaying.bind { [weak self] isNowPlaying in
+            self?.playPauseBtn.isSelected = isNowPlaying
+        }
     }
     
 }
