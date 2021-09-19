@@ -77,8 +77,15 @@ class PlayerViewModel : NSObject {
         self.currTime.value = String(minSecMilliSec[..<endIdx])
         
         // 가사 업데이트
-        if let lyrics = self.lyricsDict[minSecMilliSec] {
-            self.currLyrics.value = lyrics
+        for key in lyricsDict.keys {
+            let arr = key.split{ $0 == ","}.map{ String($0) }
+            if arr[0] > minSecMilliSec {
+                if arr[1] <= minSecMilliSec{
+                    if let lyrics = self.lyricsDict[key] {
+                        self.currLyrics.value = lyrics
+                    }
+                }
+            }
         }
         
         
@@ -173,6 +180,7 @@ class PlayerViewModel : NSObject {
                 self.maxLocation.value = Float(self.musicDuration(url: music.file))
                 
                 //lyrics
+                self.lyricsArr = self.getLyricsArr(music: music)
                 self.lyricsDict = self.getLyricsDict(music: music)
                                 
             }
@@ -196,16 +204,18 @@ class PlayerViewModel : NSObject {
     
     // lyrics의 초를 key, 가사를 value로 하는 딕셔너리 생성
     func getLyricsDict(music: Music) -> [String:String] {
-        let lyricsStr = music.lyrics
         var lyricsDict = [String: String]()
         
-        let lyricsArr = lyricsStr.split{ $0 == "\n"}.map{ String($0) }
         for i in 0..<lyricsArr.count {
-            var lyrics = lyricsArr[i]
-            lyrics.removeFirst()
+            let nextTime : String
+            if i == lyricsArr.count - 1{
+                nextTime = "00:00:000"
+            }
+            else {
+                nextTime = lyricsArr[i+1][0]
+            }
             
-            let timeLyricsArr = lyrics.split{ $0 == "]"}.map{ String($0) }
-            lyricsDict[timeLyricsArr[0]] = timeLyricsArr[1]
+            lyricsDict[nextTime + "," + lyricsArr[i][0]] = lyricsArr[i][1]
         }
         
         return lyricsDict
