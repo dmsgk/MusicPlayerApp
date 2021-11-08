@@ -11,9 +11,10 @@ var player : AVPlayer!
 
 
 
-class PlayerViewModel : NSObject {
+class PlayerViewModel {
     
     static let shared = PlayerViewModel()
+    private init() {}
     
     let singer = Observable(" ")
     let title = Observable(" ")
@@ -30,8 +31,8 @@ class PlayerViewModel : NSObject {
    
     var lyricsDict = Dictionary<String, String>()
     var lyricsArr = [[String]]()
-    var switchStatus = Observable(true)
-    var isNowPlaying = Observable(false)
+    let switchStatus = Observable(true)
+    let isNowPlaying = Observable(false)
 
     
     
