@@ -64,4 +64,3 @@
 - Dynamic type 글자크기로 수정하여 접근성 향상시키기
 - 가로화면 대응하기
 - 재생 끝나면 처음 상태로 되돌리는 기능 구현하기
-- ViewModel을 singleton 대신 의존성 주입(Dependency Injection)을 활용해 리펙토링해보기
