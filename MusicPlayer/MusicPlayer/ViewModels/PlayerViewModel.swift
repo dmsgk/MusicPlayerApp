@@ -39,33 +39,6 @@ class PlayerViewModel {
     //MARK: - PlayerViewController
     
     
-    // MARK: AVPlayer
-    func initPlayer(url : URL) {
-        let playerItem = AVPlayerItem(url: url)
-        player = AVPlayer(playerItem: playerItem)
-        playAudioBackground()
-    }
-    
-    
-    func musicDuration(url : URL) -> Double {
-        let totalDuration = AVAsset(url: url).duration
-        return CMTimeGetSeconds(totalDuration)
-    }
-    
-    
-    func playAudioBackground() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: [.mixWithOthers, .allowAirPlay])
-            print("Playback OK")
-            
-            try AVAudioSession.sharedInstance().setActive(true)
-            print("Session is Active")
-            
-        } catch {
-            print(error)
-        }
-    }
-    
     func updatePlayerStatus(_ time : CMTime){
         let cmTime = CMTimeGetSeconds(time)
         
@@ -101,9 +74,7 @@ class PlayerViewModel {
             { time in
                 self.updatePlayerStatus(time)
             }
-            
-        }
-        else {
+        } else {
             player.pause()
         }
     }
@@ -128,8 +99,7 @@ class PlayerViewModel {
         let urlStr = "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/song.json"
         
         if let url = URL(string: urlStr) {
-            URLSession.shared.dataTask(with: url) {
-                data, response, error in
+            URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
                     let jsonDecoder = JSONDecoder()
                     do {
@@ -188,53 +158,7 @@ class PlayerViewModel {
         }
         
     }
-    
-    func getAlbumImage(music : Music, completion : @escaping (Result<Data, Error>) -> Void){
-        
-        do {
-            let imageData = try Data(contentsOf: music.image)
-            DispatchQueue.main.async {
-                completion(Result.success(imageData))
-            }
-        } catch {
-            DispatchQueue.main.async {
-                completion(Result.failure(error))
-            }
-        }
-    }
-    
-    // lyrics의 초를 key, 가사를 value로 하는 딕셔너리 생성
-    func getLyricsDict(music: Music) -> [String:String] {
-        var lyricsDict = [String: String]()
-        
-        for i in 0..<lyricsArr.count {
-            let nextTime : String
-            if i == lyricsArr.count - 1{
-                nextTime = "00:00:000"
-            }
-            else {
-                nextTime = lyricsArr[i+1][0]
-            }
-            
-            lyricsDict[nextTime + "," + lyricsArr[i][0]] = lyricsArr[i][1]
-        }
-        
-        return lyricsDict
-        
-    }
-    
-    func convertCMTimeToRealTime (_ totalSeconds: Double) -> String {
-        let seconds = Int(floor(totalSeconds.truncatingRemainder(dividingBy: 60)))
-        let minutes = Int(totalSeconds / 60)
-        let milliseconds = Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 10)
-        let timeFormatString = String(format: "%02d:%02d:%01d00", minutes, seconds, milliseconds)
-        
-        return timeFormatString
-    }
-    
-    
-    
-    
+      
     // MARK: - LyricsViewController
     
     func fetchLyrics() {
@@ -243,24 +167,8 @@ class PlayerViewModel {
                 self.lyricsArr = self.getLyricsArr(music: music)
             }
         }
-        
     }
-    // lyrics의 [초, 가사]를 담은 배열 생성
-    func getLyricsArr(music: Music) -> [[String]] {
-        
-        let lyricsStr = music.lyrics
-        var lyricsArr = [[String]]()
-        
-        let arr = lyricsStr.split{ $0 == "\n"}.map{ String($0) }
-        for i in 0..<arr.count {
-            var lyrics = arr[i]
-            lyrics.removeFirst()
-            
-            let timeLyricsArr = lyrics.split{ $0 == "]"}.map{ String($0) }
-            lyricsArr.append(timeLyricsArr)
-        }
-        return lyricsArr
-    }
+    
     
     func movePlayerToLyricsPart(_ targetTime : String){
         let cmTime = CMTime(seconds: convertRealtimeToDouble(targetTime), preferredTimescale: 100)
@@ -286,3 +194,96 @@ class PlayerViewModel {
     
     
 }
+
+
+// MARK: - AVPlayer
+extension PlayerViewModel {
+    func initPlayer(url : URL) {
+        let playerItem = AVPlayerItem(url: url)
+        player = AVPlayer(playerItem: playerItem)
+        playAudioBackground()
+    }
+    
+    
+    func musicDuration(url : URL) -> Double {
+        let totalDuration = AVAsset(url: url).duration
+        return CMTimeGetSeconds(totalDuration)
+    }
+    
+    
+    func playAudioBackground() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: [.mixWithOthers, .allowAirPlay])
+            print("Playback OK")
+            
+            try AVAudioSession.sharedInstance().setActive(true)
+            print("Session is Active")
+            
+        } catch {
+            print(error)
+        }
+    }
+}
+
+// MARK: - Private
+private extension PlayerViewModel {
+    func convertCMTimeToRealTime (_ totalSeconds: Double) -> String {
+        let seconds = Int(floor(totalSeconds.truncatingRemainder(dividingBy: 60)))
+        let minutes = Int(totalSeconds / 60)
+        let milliseconds = Int(totalSeconds.truncatingRemainder(dividingBy: 1) * 10)
+        let timeFormatString = String(format: "%02d:%02d:%01d00", minutes, seconds, milliseconds)
+        
+        return timeFormatString
+    }
+    
+    func getAlbumImage(music : Music, completion : @escaping (Result<Data, Error>) -> Void){
+        do {
+            let imageData = try Data(contentsOf: music.image)
+            DispatchQueue.main.async {
+                completion(Result.success(imageData))
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(Result.failure(error))
+            }
+        }
+    }
+    
+    
+    // lyrics의 초를 key, 가사를 value로 하는 딕셔너리 생성
+    func getLyricsDict(music: Music) -> [String:String] {
+        var lyricsDict = [String: String]()
+        
+        for i in 0..<lyricsArr.count {
+            let nextTime : String
+            if i == lyricsArr.count - 1{
+                nextTime = "00:00:000"
+            }
+            else {
+                nextTime = lyricsArr[i+1][0]
+            }
+            lyricsDict[nextTime + "," + lyricsArr[i][0]] = lyricsArr[i][1]
+        }
+        return lyricsDict
+    }
+
+    // lyrics의 [초, 가사]를 담은 배열 생성
+    private func getLyricsArr(music: Music) -> [[String]] {
+        
+        let lyricsStr = music.lyrics
+        var lyricsArr = [[String]]()
+        
+        let arr = lyricsStr.split{ $0 == "\n"}.map{ String($0) }
+        for i in 0..<arr.count {
+            var lyrics = arr[i]
+            lyrics.removeFirst()
+            
+            let timeLyricsArr = lyrics.split{ $0 == "]"}.map{ String($0) }
+            lyricsArr.append(timeLyricsArr)
+        }
+        return lyricsArr
+    }
+}
+
+
+

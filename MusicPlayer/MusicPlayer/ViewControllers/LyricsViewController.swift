@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LyricsViewController: UIViewController {
     
     var viewModel = PlayerViewModel.shared
     
@@ -42,11 +42,15 @@ class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
-        getPlayerData()
+        bindData()
     
     }
-    
-    func getPlayerData() {
+
+}
+
+// MARK: - Private
+private extension LyricsViewController {
+    func bindData() {
         viewModel.currTime.bind { [weak self] time in
             self?.currTime.text = time
         }
@@ -69,9 +73,16 @@ class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
-       
+
+}
+
+// MARK: - UITableViewDelegate
+extension LyricsViewController : UITableViewDelegate {
     
-    // MARK: - TableView Functions
+}
+
+// MARK: - UITableViewDataSource
+extension LyricsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.lyricsArr.count + 1 // 전체 가사의 개수 + 1
     }
@@ -91,10 +102,9 @@ class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Unselect the row
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row > 0  {
-            // 여기에 뷰모델 함수. 
+            // 여기에 뷰모델 함수.
             
             let targetTime = viewModel.lyricsArr[indexPath.row-1][0]
             // 타겟타임을 보낸다. -> cmtime으로 변환한다.
@@ -108,8 +118,4 @@ class LyricsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    
-    
-    
-
 }

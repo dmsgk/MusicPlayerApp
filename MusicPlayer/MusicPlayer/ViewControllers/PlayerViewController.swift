@@ -17,12 +17,8 @@ class PlayerViewController: UIViewController {
     @IBOutlet var seekBar: UISlider!
     @IBOutlet var albumImage: UIImageView!
     @IBOutlet var playPauseBtn: UIButton!
-    
     @IBOutlet var totalPlaytimeLabel: UILabel!
     @IBOutlet var currentPlaytimeLabel: UILabel!
-    
-    
-    
     
     @IBAction func touchUpPlayBtn(_ sender: UIButton) {
         sender.isSelected = sender.isSelected ? false : true
@@ -37,18 +33,18 @@ class PlayerViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        getMusicData()
+        bindData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchData()
-        
     }
-    
-    
-    
-    func getMusicData() {
+}
+
+// MARK: - Private
+private extension PlayerViewController {
+    func bindData() {
         viewModel.singer.bind { [weak self] singer in
             self?.singerLabel.text = singer
         }
@@ -93,9 +89,9 @@ class PlayerViewController: UIViewController {
             self?.playPauseBtn.isSelected = isNowPlaying
         }
     }
-    
 }
 
+// MARK: - ImageResizing
 extension UIImage {
    func resizedImage(newWidth: CGFloat) -> UIImage {
        guard size.width > newWidth else { return self }
