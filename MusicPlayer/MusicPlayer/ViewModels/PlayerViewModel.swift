@@ -12,9 +12,10 @@ var player : AVPlayer!
 
 
 class PlayerViewModel {
-    
     static let shared = PlayerViewModel()
     private init() {}
+    
+    var repository = MusicRepositoty()
     
     let singer = Observable(" ")
     let title = Observable(" ")
@@ -70,7 +71,8 @@ class PlayerViewModel {
         // isSelected == true일 때 재생, 아닐 때 멈춤
         if isNowPlaying.value {
             player.play()
-            player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: .main) //0.1초마다
+            player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10),
+                                           queue: .main) //0.1초마다
             { time in
                 self.updatePlayerStatus(time)
             }
@@ -91,37 +93,9 @@ class PlayerViewModel {
         }
     }
 
-   
-    
-    
-    // MARK: fetch data
-    func decodeData(completion: @escaping (Result<Music, Error>)-> Void) {
-        let urlStr = "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/song.json"
-        
-        if let url = URL(string: urlStr) {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    let jsonDecoder = JSONDecoder()
-                    do {
-                        let music = try jsonDecoder.decode(Music.self, from: data)
-                        DispatchQueue.main.async {
-                            completion(Result.success(music))
-                        }
-                    } catch {
-                        print(error.localizedDescription)
-                        DispatchQueue.main.async {
-                            completion(Result.failure(error))
-                        }
-                    }
-                }
-            }.resume()
-        }
-    
-    }
-    
     // 디코딩한 데이터 observable클래스타입으로
     func fetchData() {
-        decodeData { result in
+        repository.decodeData { result in
             if let music = try? result.get() {
                 // ui 값 업데이트
                 self.singer.value = music.singer
@@ -162,7 +136,7 @@ class PlayerViewModel {
     // MARK: - LyricsViewController
     
     func fetchLyrics() {
-        decodeData { result in
+        repository.decodeData { result in
             if let music = try? result.get() {
                 self.lyricsArr = self.getLyricsArr(music: music)
             }
