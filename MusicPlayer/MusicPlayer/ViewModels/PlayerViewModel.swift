@@ -96,30 +96,35 @@ class PlayerViewModel {
     // 디코딩한 데이터 observable클래스타입으로
     func fetchData() {
         repository.decodeData { result in
-            if let music = try? result.get() {
+            switch result {
+            case .failure(let error):
+                print("error: \(error)")
+                
+            case .success(let music):
                 // ui 값 업데이트
                 self.singer.value = music.singer
                 self.title.value = music.title
                 self.albumTitle.value = music.album
-            
                 
                 // 앨범커버 업데이트
                 self.getAlbumImage(music: music) { result in
-                    if let imageData = try? result.get() {
+                    switch result {
+                    case .success(let imageData):
                         let image = UIImage(data: imageData)
                         self.albumImg.value = image
+                    case .failure(let error):
+                        print("error: \(error)")
                     }
                 }
+                
                 // player 업데이트
                 self.initPlayer(url: music.file)
                 
                 let minSecMilliSec = self.convertCMTimeToRealTime(self.musicDuration(url: music.file))
                 let endIdx = minSecMilliSec.index(minSecMilliSec.startIndex, offsetBy: 5)
                 self.totalTime.value = String(minSecMilliSec[..<endIdx])
-                
                 self.currTime.value = "0:00"
                 
-
                 // progressBar 업데이트
                 self.currLocation.value = 0
                 self.maxLocation.value = Float(self.musicDuration(url: music.file))
@@ -127,18 +132,19 @@ class PlayerViewModel {
                 //lyrics
                 self.lyricsArr = self.getLyricsArr(music: music)
                 self.lyricsDict = self.getLyricsDict(music: music)
-                                
             }
         }
-        
     }
       
     // MARK: - LyricsViewController
     
     func fetchLyrics() {
         repository.decodeData { result in
-            if let music = try? result.get() {
-                self.lyricsArr = self.getLyricsArr(music: music)
+            switch result {
+            case .success(let data):
+                self.lyricsArr = self.getLyricsArr(music: data)
+            case .failure(let error):
+                print("error : \(error)")
             }
         }
     }
